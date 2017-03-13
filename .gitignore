@@ -15,5 +15,7 @@
 
 /db/csv
 
+/lor
+
 # Ignore Byebug command history file.
 .byebug_history
