@@ -1,3 +1,3 @@
 Fabricator(:merchant) do
-  name "MyString"
+  name "Fred"
 end

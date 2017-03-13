@@ -1,6 +1,6 @@
 Fabricator(:item) do
-  name        "MyString"
-  description "MyString"
-  unit_price  1
-  merchant_id nil
+  name        "Whizbang"
+  description "It'll whiz your bang"
+  unit_price  123
+  merchant_id 
 end
