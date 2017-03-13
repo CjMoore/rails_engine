@@ -1,5 +1,5 @@
 Fabricator(:invoice) do
-  customer_id nil
-  merchant_id nil
-  status      "MyString"
+  customer_id
+  merchant_id
+  status      "shipped"
 end

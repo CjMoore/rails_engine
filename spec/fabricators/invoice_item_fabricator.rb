@@ -1,6 +1,6 @@
 Fabricator(:invoice_item) do
-  item_id    nil
-  invoice_id nil
+  item_id
+  invoice_id
   quantity   1
-  unit_price 1
+  unit_price 123 
 end
