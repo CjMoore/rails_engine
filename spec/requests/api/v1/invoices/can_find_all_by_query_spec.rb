@@ -16,6 +16,21 @@ describe "when user queries invoices with find_all" do
     expect(invoice2.id).to eq(invoice2_response["id"])
   end
 
+  it "they can find_all with customer_id" do
+    merchant = Fabricate(:merchant)
+    invoice1, invoice2 = Fabricate.times(2, :invoice, merchant: merchant)
+
+    get "/api/v1/invoices/find_all?merchant_id=#{invoice1.merchant_id}"
+
+    expect(response).to be_success
+
+    invoice1_response = JSON.parse(response.body).first
+    invoice2_response = JSON.parse(response.body).last
+
+    expect(invoice1.id).to eq(invoice1_response["id"])
+    expect(invoice2.id).to eq(invoice2_response["id"])
+  end
+
   it "they can find_all with status" do
     invoice1, invoice2 = Fabricate.times(2, :invoice)
 

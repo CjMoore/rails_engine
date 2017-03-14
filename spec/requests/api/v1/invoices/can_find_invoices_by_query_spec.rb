@@ -12,6 +12,17 @@ describe "user queries invoices with find" do
     expect(invoice["id"]).to eq(invoice1.id)
   end
 
+  it "by the merchant_id" do
+    invoice1 = Fabricate(:invoice)
+
+    get "/api/v1/invoices/find?merchant_id=#{invoice1.merchant_id}"
+
+    expect(response).to be_success
+
+    invoice = JSON.parse(response.body)
+    expect(invoice["id"]).to eq(invoice1.id)
+  end
+
   it "by the time status" do
     invoice1 = Fabricate(:invoice)
 
