@@ -8,6 +8,7 @@ Rails.application.routes.draw do
           get "/find_all", to: "invoices_find#index"
         end
       end
+      resources :items, only: [:index, :show] 
     end
   end
 end
