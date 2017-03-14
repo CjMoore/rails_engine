@@ -1,5 +1,5 @@
 Fabricator(:invoice) do
-  customer_id
-  merchant_id
+  customer
+  merchant
   status      "shipped"
 end

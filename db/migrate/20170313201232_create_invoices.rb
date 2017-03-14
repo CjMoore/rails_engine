@@ -5,7 +5,7 @@ class CreateInvoices < ActiveRecord::Migration[5.0]
       t.references :merchant, foreign_key: true
       t.string :status
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end
