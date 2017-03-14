@@ -44,12 +44,6 @@ describe "find parameters" do
     expect(find_transaction["id"]).to eq(transaction.id)
     expect(find_transaction["result"]).to eq(transaction.result)
   end
-
-  it "should be 404" do
-    Fabricate(:transaction)
-    get "/api/v1/transactions/find"
-    expect(response.status).to eq(404)
-  end
 end
 
 describe "find all parameters" do

@@ -45,12 +45,6 @@ describe "find parameters" do
     expect(find_customer["first_name"]).to eq(customer.first_name)
     expect(find_customer["last_name"]).to eq(customer.last_name)
   end
-
-  it "should be 404" do
-    Fabricate(:customer)
-    get "/api/v1/customers/find"
-    expect(response.status).to eq(404)
-  end
 end
 
 describe "find all parameters" do

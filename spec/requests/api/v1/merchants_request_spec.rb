@@ -44,12 +44,6 @@ describe "find parameters" do
     expect(find_merchant["id"]).to eq(merchant.id)
     expect(find_merchant["name"]).to eq(merchant.name)
   end
-
-  it "should be 404" do
-    Fabricate(:merchant)
-    get "/api/v1/merchants/find"
-    expect(response.status).to eq(404)
-  end
 end
 
 describe "find all parameters" do

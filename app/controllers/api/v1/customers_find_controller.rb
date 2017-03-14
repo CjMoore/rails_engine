@@ -1,45 +1,19 @@
 class Api::V1::CustomersFindController < ApplicationController
 
   def index
-    customers = find_customers
-    if customers
-      render json: find_customers
-    end
+    render json: Customer.where(find_params)
   end
 
   def show
-    customer = find_customer
-    if customer
-      render json: find_customer
-    else
-      head 404
-    end
+    render json: Customer.find_by(find_params)
   end
 
   private
-  def find_customer
-    key = find_params_key
-    if key == "created_at" || key == "updated_at"
-      time = DateTime.parse(params[key])
-      Customer.where(key => time).first
-    elsif key
-      Customer.find_by(key => params[key])
-    end
-  end
-
-  def find_customers
-    key = find_params_key
-    if key == "created_at" || key == "updated_at"
-      time = DateTime.parse(params[key])
-      Customer.where(key => time)
-    elsif key
-      Customer.where(key => params[key])
-    end
-  end
-
-  def find_params_key
-    params.keys.find do |key|
-      [:first_name, :last_name, :id, :created_at, :updated_at].include?(key.downcase.to_sym)
-    end
+  def find_params
+    params.permit(:id,
+                  :created_at,
+                  :updated_at,
+                  :first_name,
+                  :last_name)
   end
 end
