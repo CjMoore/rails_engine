@@ -18,4 +18,9 @@ class ApplicationRecord < ActiveRecord::Base
       where(key => params[key])
     end
   end
+
+  def self.random
+    all.sample
+  end
+  
 end
