@@ -22,6 +22,13 @@ Rails.application.routes.draw do
           end
         end
       end
+      resources :transactions, only: [:index, :show] do
+        collection do
+          get "/find", to: "transactions_find#show"
+          get "/find_all", to: "transactions_find#index"
+          get "/random", to: "transactions_random#show"
+        end
+      end
     end
   end
 end

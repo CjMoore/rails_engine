@@ -19,14 +19,20 @@ class Api::V1::MerchantsFindController < ApplicationController
   private
   def find_merchant
     key = find_params_key
-    if key
+    if key == "created_at" || key == "updated_at"
+      time = DateTime.parse(params[key])
+      Merchant.where(key => time).first
+    elsif key
       Merchant.find_by(key => params[key])
     end
   end
 
   def find_merchants
     key = find_params_key
-    if key
+    if key == "created_at" || key == "updated_at"
+      time = DateTime.parse(params[key])
+      Merchant.where(key => time)
+    elsif key
       Merchant.where(key => params[key])
     end
   end
