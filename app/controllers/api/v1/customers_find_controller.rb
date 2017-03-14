@@ -22,10 +22,8 @@ class Api::V1::CustomersFindController < ApplicationController
     if key == "created_at" || key == "updated_at"
       time = DateTime.parse(params[key])
       Customer.where(key => time).first
-    elsif key == "id"
-      Customer.find(params[key])
     elsif key
-      Customer.find_by("lower(#{key}) = ?", params[key].downcase)
+      Customer.find_by(key => params[key])
     end
   end
 
@@ -34,10 +32,8 @@ class Api::V1::CustomersFindController < ApplicationController
     if key == "created_at" || key == "updated_at"
       time = DateTime.parse(params[key])
       Customer.where(key => time)
-    elsif key == "id"
-      Customer.where(key => params[key])
     elsif key
-      Customer.where("lower(#{key}) = ?", params[key].downcase)
+      Customer.where(key => params[key])
     end
   end
 
