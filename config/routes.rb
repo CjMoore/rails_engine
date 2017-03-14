@@ -14,6 +14,13 @@ Rails.application.routes.draw do
           get "/find_all", to: "invoices_find#index"
           get "/random", to: "invoices_random#show"
         end
+        resources :merchants, only: [:index, :show] do
+          collection do
+            get "/find", to: "merchants_find#show"
+            get "/find_all", to: "merchants_find#index"
+            get "/random", to: "merchants_random#show"
+          end
+        end
       end
     end
   end
