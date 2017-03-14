@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
-  namespace :api do
-    namespace :v1 do
-      get 'invoices_random/show'
-    end
-  end
+  # namespace :api do
+  #   namespace :v1 do
+  #     get 'invoices_random/show'
+  #   end
+  # end
 
   namespace :api do
     namespace :v1 do
@@ -15,7 +15,13 @@ Rails.application.routes.draw do
           get "/random", to: "invoices_random#show"
         end
       end
-      resources :items, only: [:index, :show] 
+      resources :items, only: [:index, :show] do
+        collection do
+          get "/find", to: "items_find#show"
+          get "/find_all", to: "items_find#index"
+          get "/random", to: "items_random#show"
+        end
+      end
     end
   end
 end
