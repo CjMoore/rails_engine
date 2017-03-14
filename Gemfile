@@ -31,6 +31,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'fabrication'
   gem 'shoulda-matchers', '~> 3.0'
+  gem 'pry'
 end
 
 group :development do

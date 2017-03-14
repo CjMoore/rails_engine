@@ -33,8 +33,8 @@ def seed_transactions
     Transaction.create(invoice_id: row[:invoice_id],
                    credit_card_number: row[:credit_card_number],
                    result: row[:result],
-                   transaction_created: row[:created_at],
-                   transaction_updated: row[:update_at])
+                   created_at: row[:created_at],
+                   updated_at: row[:updated_at])
   end
   puts "transactions seeded"
 end
