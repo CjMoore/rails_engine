@@ -26,6 +26,28 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :merchants, only: [:index, :show] do
+        collection do
+          get "/find", to: "merchants_find#show"
+          get "/find_all", to: "merchants_find#index"
+          get "/random", to: "merchants_random#show"
+        end
+      end
+      resources :transactions, only: [:index, :show] do
+        collection do
+          get "/find", to: "transactions_find#show"
+          get "/find_all", to: "transactions_find#index"
+          get "/random", to: "transactions_random#show"
+        end
+      end
+      resources :customers, only: [:index, :show] do
+        collection do
+          get "/find", to: "customers_find#show"
+          get "/find_all", to: "customers_find#index"
+          get "/random", to: "customers_random#show"
+        end
+      end
+
     end
   end
 end
