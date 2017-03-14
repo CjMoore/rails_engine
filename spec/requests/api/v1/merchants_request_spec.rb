@@ -57,7 +57,7 @@ describe "find all parameters" do
     merchant = Fabricate(:merchant)
     Fabricate(:merchant)
 
-    get "/api/v1/merchants/find_all?name=#{merchant.name}"
+    get "/api/v1/merchants/find_all?name=#{merchant.name.downcase}"
 
     expect(response).to be_success
 
@@ -65,18 +65,31 @@ describe "find all parameters" do
 
     expect(all_merchants.count).to eq(2)
   end
-  # it "should find by date" do
-  #   merchant = Fabricate(:merchant)
-  #   Fabricate(:merchant)
-  #
-  #   get "/api/v1/merchants/find_all?created_at=#{merchant.created_at.as_json}"
-  #
-  #   expect(response).to be_success
-  #
-  #   all_merchants = JSON.parse(response.body)
-  #
-  #   expect(all_merchants.count).to eq(2)
-  # end
+   it "should find by date" do
+     merchant = Fabricate(:merchant, created_at: "2012-03-06T16:54:31.000Z")
+     Fabricate(:merchant)
+
+     get "/api/v1/merchants/find_all?created_at=#{merchant.created_at}"
+
+     expect(response).to be_success
+
+     all_merchants = JSON.parse(response.body)
+
+     expect(all_merchants.count).to eq(1)
+   end
+
+   it "should find by id" do
+     merchant = Fabricate(:merchant)
+     Fabricate(:merchant)
+
+     get "/api/v1/merchants/find_all?id=#{merchant.id}"
+
+     expect(response).to be_success
+
+     all_merchants = JSON.parse(response.body)
+
+     expect(all_merchants.count).to eq(1)
+   end
 end
 
 describe "random merchant" do

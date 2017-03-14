@@ -22,8 +22,10 @@ class Api::V1::TransactionsFindController < ApplicationController
     if key == "created_at" || key == "updated_at"
       time = DateTime.parse(params[key])
       Transaction.where(key => time).first
+    elsif key == "id" || key == "invoice_id"
+      Transaction.find(params[key])
     elsif key
-      Transaction.find_by(key => params[key])
+      Transaction.find_by("lower(#{key}) = ?", params[key].downcase)
     end
   end
 
@@ -32,8 +34,10 @@ class Api::V1::TransactionsFindController < ApplicationController
     if key == "created_at" || key == "updated_at"
       time = DateTime.parse(params[key])
       Transaction.where(key => time)
-    elsif key
+    elsif key == "id" || key == "invoice_id"
       Transaction.where(key => params[key])
+    elsif key
+      Transaction.where("lower(#{key}) = ?", params[key].downcase)
     end
   end
 

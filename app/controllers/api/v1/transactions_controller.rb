@@ -1,6 +1,6 @@
 class Api::V1::TransactionsController < ApplicationController
   def index
-    render json: Transaction.all.to_json(only: [:id, :results, :invoice_id, :credit_card_number])
+    render json: Transaction.all.to_json(only: [:id, :result, :invoice_id, :credit_card_number])
   end
 
   def show
