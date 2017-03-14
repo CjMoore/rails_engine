@@ -45,16 +45,17 @@ describe "user queries invoices with find" do
     expect(invoice["id"]).to eq(invoice1.id)
   end
 
-  # it "can find by created_at" do
-  #   invoice1 = Invoice.create(customer: Fabricate(:customer),
-  #                             merchant: Fabricate(:merchant),
-  #                             status: "Shipped")
-  #
-  #
-  #   get "/api/v1/invoices/find?created_at=#{invoice1.created_at}"
-  #
-  #   expect(response).to be_success
-  #   invoice = JSON.parse(response.body)
-  #   expect(invoice["id"]).to eq(invoice1.id)
-  # end
+  it "can find by created_at" do
+    invoice1 = Invoice.create(customer: Fabricate(:customer),
+                              merchant: Fabricate(:merchant),
+                              status: "Shipped",
+                              created_at: "2012-03-06T16:54:31.000Z")
+
+
+    get "/api/v1/invoices/find?created_at=#{invoice1.created_at}"
+
+    expect(response).to be_success
+    invoice = JSON.parse(response.body)
+    expect(invoice["id"]).to eq(invoice1.id)
+  end
 end
