@@ -1,7 +1,7 @@
 class Api::V1::InvoicesFindController < ApplicationController
 
   def index
-
+    render json: Invoice.get_all_by_params(params)
   end
 
   def show

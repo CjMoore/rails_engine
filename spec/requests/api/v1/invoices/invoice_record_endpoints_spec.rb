@@ -3,7 +3,7 @@ require 'rails_helper'
 describe "invoice record endpoints" do
   it "sends a list of invoices" do
     invoice1, invoice2, invoice3 = Fabricate.times(3, :invoice)
-
+    
     get '/api/v1/invoices'
 
     expect(response).to be_success

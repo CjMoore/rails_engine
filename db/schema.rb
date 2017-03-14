@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(version: 20170313201632) do
     t.integer  "customer_id"
     t.integer  "merchant_id"
     t.string   "status"
-    t.datetime "updated_at"
-    t.datetime "created_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.index ["customer_id"], name: "index_invoices_on_customer_id", using: :btree
     t.index ["merchant_id"], name: "index_invoices_on_merchant_id", using: :btree
   end
