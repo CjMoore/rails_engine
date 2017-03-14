@@ -9,7 +9,7 @@ Rails.application.routes.draw do
           get "/random", to: "invoices_random#show"
         end
       end
-      
+
       resources :items, only: [:index, :show] do
         collection do
           get "/find", to: "items_find#show"
@@ -18,7 +18,13 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :invoice_items, only: [:index, :show]
+      resources :invoice_items, only: [:index, :show] do
+        collection do
+          get "/find", to: "invoice_items_find#show"
+          get "/find_all", to: "invoice_items_find#index"
+          get "/random", to: "invoice_items_random#show"
+        end
+      end
 
     end
   end
