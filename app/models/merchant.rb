@@ -9,14 +9,26 @@ class Merchant < ApplicationRecord
     Customer.find(Customer.joins(:transactions, :invoices).where("invoices.merchant_id = ? and result = ?", merchant.id, "success").select("customers.*, invoices.customer_id, transactions.result").group("invoices.customer_id").order("count_id DESC").count('id').first.first)
   end
 
-  def total_revenue
-    invoices.select(&:successful?).reduce(0) do |total, invoice|
-      total += invoice.total
+  def total_revenue(date=nil)
+    if date
+      invoices_by_date(date).reduce(0) do |total, invoice|
+        total += invoice.total
+      end
+    else
+      invoices.select(&:successful?).reduce(0) do |total, invoice|
+        total += invoice.total
+      end
     end
   end
 
   def self.with_invoices
     includes(invoices: [:invoice_items, :transactions])
+  end
+
+  def invoices_by_date(date)
+    invoices.select(&:successful?).select do |invoice|
+      DateTime.parse(date) == invoice.date
+    end
   end
 
 end

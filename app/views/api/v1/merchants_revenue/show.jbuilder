@@ -1,1 +1,1 @@
-json.revenue (@merchant.total_revenue/100.00).to_s
+json.revenue (@revenue/100.00).to_s
