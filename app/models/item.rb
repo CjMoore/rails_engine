@@ -9,4 +9,12 @@ class Item < ApplicationRecord
   def self.with_most_revenue(count)
     joins(invoices: [:transactions, :invoice_items]).merge(Transaction.where(result: "success")).group(:id).select("items.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue").order("revenue DESC").limit(count)
   end
+
+  def self.best_day(item)
+    joins(invoices: [:transactions, :invoice_items])
+      .merge(Transaction.success).where("items.id = ?", item.id)
+      .select("invoices.created_at as best_day, sum(invoice_items.quantity * invoice_items.unit_price) as revenue")
+      .group("best_day").order("revenue desc").limit(1)
+  end
+
 end
