@@ -1,7 +1,7 @@
 require "rails_helper"
 require "json"
 
-describe "get index" do
+describe "get show" do
   it "returns items ranked by amount sold" do
     item_1, item_2 = Fabricate.times(2, :item)
     invoice_1 = Fabricate(:invoice)
@@ -15,8 +15,8 @@ describe "get index" do
 
     expect(response).to be_successful
 
-    best_day = JSON.parse(response)
+    best_day = JSON.parse(response.body)
 
-    expect(best_day["date"]).to eq(invoice_2.created_at)
+    expect(best_day["best_day"]).to eq("2012-03-06T16:54:31.000Z")
   end
 end
