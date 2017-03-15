@@ -19,8 +19,8 @@ RSpec.describe Merchant, type: :model do
 
       favorite_customer = Merchant.get_favorite_customer(merchant)
 
-      expect(favorite_customer.first_name).to eq("Bob")
-      expect(favorite_customer.last_name).to eq("Burger")
+      expect(favorite_customer.first.first_name).to eq("Bob")
+      expect(favorite_customer.first.last_name).to eq("Burger")
     end
   end
 
