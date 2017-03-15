@@ -7,6 +7,6 @@ class Transaction < ApplicationRecord
   validates :credit_card_number, :result, presence: true
 
   def self.success
-    where.(result: "success")
+    where(result: "success")
   end
 end
