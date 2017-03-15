@@ -11,9 +11,9 @@ describe "get show" do
 
     expect(response).to be_success
 
-    merchant = JSON.parse(response.body)
+    merchant_response = JSON.parse(response.body)
 
-    expect(merchant["id"]).to eq(merchant.id)
+    expect(merchant_response["id"]).to eq(merchant.id)
   end
 
   it "does not show other merchants" do
@@ -29,10 +29,10 @@ describe "get show" do
 
     expect(response).to be_success
 
-    merchant = JSON.parse(response.body)
+    merchant_response = JSON.parse(response.body)
 
-    expect(merchant["id"]).to eq(merchant.id)
-    expect(merchant["id"]).to_not eq(merchant_2.id)
+    expect(merchant_response["id"]).to eq(merchant.id)
+    expect(merchant_response["id"]).to_not eq(merchant_2.id)
 
   end
 end
