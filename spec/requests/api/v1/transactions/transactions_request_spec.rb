@@ -3,7 +3,7 @@ require "json"
 
 describe "get index" do
   it "should be success" do
-    Fabricate.times(2, :transaction)
+    transaction = Fabricate(:transaction)
 
     get "/api/v1/transactions.json"
 
@@ -32,8 +32,9 @@ end
 
 describe "find parameters" do
   it "should be success" do
-    transaction = Fabricate(:transaction)
-    Fabricate(:transaction)
+    invoice = Fabricate(:invoice)
+    transaction = invoice.transactions.first
+    # Fabricate(:transaction)
 
     get "/api/v1/transactions/find?result=#{transaction.result}"
 
@@ -49,7 +50,7 @@ end
 describe "find all parameters" do
   it "should be success" do
     transaction = Fabricate(:transaction)
-    Fabricate(:transaction)
+    # Fabricate(:transaction)
 
     get "/api/v1/transactions/find_all?credit_card_number=#{transaction.credit_card_number}"
 
