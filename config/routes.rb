@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       end
 
       resources :merchants, only: [:index, :show] do
+        get "/revenue", to: "merchants_revenue#show"
         collection do
           get "/find", to: "merchants_find#show"
           get "/find_all", to: "merchants_find#index"
