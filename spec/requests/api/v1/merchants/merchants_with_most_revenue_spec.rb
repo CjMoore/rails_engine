@@ -10,7 +10,7 @@ describe "when user visits merchant/most_revenue?quantity and enter quantity" do
     Fabricate(:invoice_item, invoice: invoice2)
     Fabricate(:invoice_item, invoice: invoice3)
 
-    get '/merchants/most_revenue?quantity=2'
+    get '/api/v1/merchants/most_revenue?quantity=2'
 
     expect(response).to be_success
 

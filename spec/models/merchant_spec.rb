@@ -15,7 +15,7 @@ RSpec.describe Merchant, type: :model do
       merchant = Fabricate(:merchant)
       customer = Fabricate(:customer)
       invoice1 = Fabricate(:invoice, merchant: merchant, customer: customer)
-      transaction1, transaction2, transaction3 = Fabricate.times(3, :transaction, invoice: invoice1)
+      Fabricate.times(3, :transaction, invoice: invoice1)
 
       favorite_customer = Merchant.get_favorite_customer(merchant)
 
@@ -28,9 +28,21 @@ RSpec.describe Merchant, type: :model do
     it "should return total revenue for a merchant" do
       merchant = Fabricate(:merchant)
       invoice = Fabricate(:invoice, merchant: merchant)
-      invoice_item = Fabricate(:invoice_item, invoice: invoice, quantity: 2, unit_price: 1000)
+      Fabricate(:invoice_item, invoice: invoice, quantity: 2, unit_price: 1000)
 
       expect(merchant.reload.total_revenue).to eq(2000)
+    end
+  end
+
+  context "invoices_by_date" do
+    it "should return invoices with matching dates" do
+      merchant = Fabricate(:merchant)
+      invoice = Fabricate(:invoice, merchant: merchant, created_at: "2012-03-06T16:54:31.000Z")
+      invoice_2 = Fabricate(:invoice, merchant: merchant, created_at: "2012-04-06T16:54:21.000Z")
+      Fabricate(:invoice_item, invoice: invoice, quantity: 2, unit_price: 1000)
+      Fabricate(:invoice_item, invoice: invoice_2, quantity: 2, unit_price: 1000)
+
+      expect(merchant.invoices_by_date(invoice.created_at.to_s).count).to eq(1)
     end
   end
 end

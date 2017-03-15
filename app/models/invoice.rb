@@ -18,4 +18,8 @@ class Invoice < ApplicationRecord
       transaction.result == "success"
     end
   end
+
+  def date
+    self.created_at
+  end
 end
