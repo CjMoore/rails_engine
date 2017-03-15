@@ -30,6 +30,7 @@ Rails.application.routes.draw do
         get "/favorite_customer", to: "merchants_favorite_customer#show"
         get "/revenue", to: "merchants_revenue#show"
         collection do
+          get "/total_revenue", to: "merchants_revenue#index"
           get "/find", to: "merchants_find#show"
           get "/find_all", to: "merchants_find#index"
           get "/random", to: "merchants_random#show"
@@ -49,7 +50,6 @@ Rails.application.routes.draw do
           get "/random", to: "customers_random#show"
         end
       end
-
     end
   end
 end
