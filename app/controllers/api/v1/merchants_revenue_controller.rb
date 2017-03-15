@@ -8,8 +8,11 @@ class Api::V1::MerchantsRevenueController < ApplicationController
   end
 
   def index
-    if params.keys.include?("quantity")
+    if params[:quantity]
       @merchants = Merchant.with_most_revenue(params[:quantity])
+    elsif params[:date]
+      render json: { "total_revenue" => ((Merchant.total_revenue_on_date(params[:date])/100.00).round(2)).to_s}
+
     end
   end
 end

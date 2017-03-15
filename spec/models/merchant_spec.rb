@@ -19,8 +19,8 @@ RSpec.describe Merchant, type: :model do
 
       favorite_customer = Merchant.get_favorite_customer(merchant)
 
-      expect(favorite_customer.first_name).to eq("Bob")
-      expect(favorite_customer.last_name).to eq("Burger")
+      expect(favorite_customer.first.first_name).to eq("Bob")
+      expect(favorite_customer.first.last_name).to eq("Burger")
     end
   end
 
@@ -31,6 +31,33 @@ RSpec.describe Merchant, type: :model do
       Fabricate(:invoice_item, invoice: invoice, quantity: 2, unit_price: 1000)
 
       expect(merchant.reload.total_revenue).to eq(2000)
+    end
+
+    it "should return total revenue on a particular date for all merchants" do
+      merchant1, merchant2 = Fabricate.times(2, :merchant)
+      invoice = Fabricate(:invoice, merchant: merchant1, created_at: "2012-03-06T16:54:31.000Z")
+      invoice_2 = Fabricate(:invoice, merchant: merchant2, created_at: "2012-04-06T16:54:21.000Z")
+      Fabricate(:invoice_item, invoice: invoice, quantity: 2, unit_price: 1000)
+      Fabricate(:invoice_item, invoice: invoice_2, quantity: 2, unit_price: 1000)
+
+      total_revenue = Merchant.total_revenue_on_date(invoice.created_at)
+
+      expect(2000).to eq(total_revenue)
+    end
+  end
+
+  context "with_most_revenue" do
+    it "returns a list of merchants with the most revenue" do
+      merchant1, merchant2 = Fabricate.times(2, :merchant)
+      invoice1 = Fabricate(:invoice, merchant: merchant1)
+      invoice2 = Fabricate(:invoice, merchant: merchant2)
+      Fabricate(:invoice_item, invoice: invoice1)
+      Fabricate(:invoice_item, invoice: invoice2)
+
+      merchants = Merchant.with_most_revenue(2)
+
+      expect(merchants.first.id).to eq(merchant1.id)
+      expect(merchants.last.id).to eq(merchant2.id)
     end
   end
 
