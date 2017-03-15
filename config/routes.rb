@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
       resources :items, only: [:index, :show] do
         collection do
+          get "/most_revenue", to: "items_most_revenue#index"
           get "/find", to: "items_find#show"
           get "/find_all", to: "items_find#index"
           get "/random", to: "items_random#show"
