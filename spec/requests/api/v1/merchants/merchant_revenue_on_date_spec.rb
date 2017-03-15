@@ -15,7 +15,7 @@ describe "when user visits /merchants/revenue" do
 
       total_revenue = JSON.parse(response.body)
 
-      expect({ "total_revenue" => "2000.00"}).to eq(total_revenue)
+      expect({ "total_revenue" => "20.0"}).to eq(total_revenue)
     end
   end
 end
