@@ -6,4 +6,8 @@ class Api::V1::MerchantsRevenueController < ApplicationController
       @revenue = Merchant.with_invoices.find(params[:merchant_id]).total_revenue
     end
   end
+
+  def index
+    @merchants = Merchant.with_most_revenue(params[:quantity])
+  end
 end
