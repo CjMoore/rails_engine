@@ -8,6 +8,8 @@ class Api::V1::MerchantsRevenueController < ApplicationController
   end
 
   def index
-    @merchants = Merchant.with_most_revenue(params[:quantity])
+    if params.keys.include?("quantity")
+      @merchants = Merchant.with_most_revenue(params[:quantity])
+    end
   end
 end
