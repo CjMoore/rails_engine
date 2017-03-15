@@ -2,6 +2,7 @@ class Merchant < ApplicationRecord
   has_many :items
   has_many :invoices
   has_many :transactions, through: :invoices
+  has_many :invoice_items, through: :invoices
 
   validates :name, presence: true
 
@@ -29,6 +30,15 @@ class Merchant < ApplicationRecord
     invoices.select(&:successful?).select do |invoice|
       DateTime.parse(date) == invoice.date
     end
+  end
+
+  def self.most_items(number)
+    select("merchants.*, SUM(invoice_items.quantity) as total_items")
+      .joins(:invoice_items)
+      .joins("JOIN transactions ON transactions.invoice_id = invoices.id AND transactions.result = 'success'")
+      .having("COUNT(transactions.id) > 0")
+      .group("merchants.id")
+      .order("total_items DESC").limit(number)
   end
 
 end
