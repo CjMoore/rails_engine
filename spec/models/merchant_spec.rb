@@ -30,7 +30,7 @@ RSpec.describe Merchant, type: :model do
       invoice = Fabricate(:invoice, merchant: merchant)
       Fabricate(:invoice_item, invoice: invoice, quantity: 2, unit_price: 1000)
 
-      expect(merchant.reload.total_revenue).to eq(2000)
+      expect(Merchant.total_revenue(merchant.id)).to eq(2000)
     end
 
     it "should return total revenue on a particular date for all merchants" do
@@ -61,7 +61,7 @@ RSpec.describe Merchant, type: :model do
     end
   end
 
-  context "invoices_by_date" do
+  context "merchant_revenue_on_date" do
     it "should return invoices with matching dates" do
       merchant = Fabricate(:merchant)
       invoice = Fabricate(:invoice, merchant: merchant, created_at: "2012-03-06T16:54:31.000Z")
@@ -69,7 +69,7 @@ RSpec.describe Merchant, type: :model do
       Fabricate(:invoice_item, invoice: invoice, quantity: 2, unit_price: 1000)
       Fabricate(:invoice_item, invoice: invoice_2, quantity: 2, unit_price: 1000)
 
-      expect(merchant.invoices_by_date(invoice.created_at.to_s).count).to eq(1)
+      expect(Merchant.merchant_revenue_on_date(invoice.created_at, merchant.id)).to eq(2000)
     end
   end
 end
