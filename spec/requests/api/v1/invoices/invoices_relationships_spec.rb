@@ -51,3 +51,18 @@ describe "get all items for an invoice" do
     expect(item_response.last["id"]).to eq(item_2.id)
   end
 end
+
+describe "get customer for an invoice" do
+  it "returns the associated customer" do
+    customer = Fabricate(:customer)
+    invoice = Fabricate(:invoice, customer: customer)
+
+    get "/api/v1/invoices/#{invoice.id}/customer"
+
+    expect(response).to be_success
+
+    customer_response = JSON.parse(response.body)
+
+    expect(customer_response["id"]).to eq(customer.id)
+  end
+end

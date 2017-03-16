@@ -6,6 +6,7 @@ Rails.application.routes.draw do
         get "/transactions", to: "invoices_transactions#index"
         get "/invoice_items", to: "invoices_invoice_items#index"
         get "/items", to: "invoices_items#index"
+        get "/customer", to: "invoices_customer#show"
         collection do
           get "/find", to: "invoices_find#show"
           get "/find_all", to: "invoices_find#index"
