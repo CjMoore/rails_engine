@@ -1,4 +1,4 @@
-class Api::V1::ItemsFindController< ApplicationController
+class Api::V1::Item::ItemsFindController< ApplicationController
   def index
     if params[:unit_price]
       @items = Item.where(unit_price: format_unit_price(params[:unit_price]))

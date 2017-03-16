@@ -1,4 +1,4 @@
-class Api::V1::TransactionsFindController < ApplicationController
+class Api::V1::Transaction::TransactionsFindController < ApplicationController
 
   def index
     render json: Transaction.where(find_params)

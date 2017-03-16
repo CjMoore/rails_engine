@@ -1,6 +1,6 @@
 class Api::V1::Customers::CustomersController < ApplicationController
   def index
-    render json: Customer.all.to_json(only: [:id, :first_name, :last_name])
+    render json: Customer.all.to_json(except: [:created_at, :updated_at])
   end
 
   def show

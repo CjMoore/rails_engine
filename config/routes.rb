@@ -2,29 +2,29 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :invoices, only: [:index, :show] do
-        get "/transactions", to: "invoices_transactions#index"
-        get "/invoice_items", to: "invoices_invoice_items#index"
-        get "/items", to: "invoices_items#index"
-        get "/customer", to: "invoices_customer#show"
-        get "/merchant", to: "invoices_merchant#show"
+      resources :invoices, only: [:index, :show], :controller => "invoices/invoices" do
+        get "/transactions", to: "invoices/invoices_transactions#index"
+        get "/invoice_items", to: "invoices/invoices_invoice_items#index"
+        get "/items", to: "invoices/invoices_items#index"
+        get "/customer", to: "invoices/invoices_customer#show"
+        get "/merchant", to: "invoices/invoices_merchant#show"
         collection do
-          get "/find", to: "invoices_find#show"
-          get "/find_all", to: "invoices_find#index"
+          get "/find", to: "invoices/invoices_find#show"
+          get "/find_all", to: "invoices/invoices_find#index"
           get "/random", to: "invoices/invoices_random#show"
         end
       end
 
-      resources :items, only: [:index, :show] do
-        get "/best_day", to: "items_best_day#show"
-        get "/invoice_items", to: "items_invoice_items#index"
-        get "/merchant", to: "items_merchant#show"
+      resources :items, only: [:index, :show] , :controller => "item/items" do
+        get "/best_day", to: "item/items_best_day#show"
+        get "/invoice_items", to: "item/items_invoice_items#index"
+        get "/merchant", to: "item/items_merchant#show"
         collection do
-          get "/most_revenue", to: "items_most_revenue#index"
-          get "/most_items", to: "items_most_items#index"
-          get "/find", to: "items_find#show"
-          get "/find_all", to: "items_find#index"
-          get "/random", to: "items_random#show"
+          get "/most_revenue", to: "item/items_most_revenue#index"
+          get "/most_items", to: "item/items_most_items#index"
+          get "/find", to: "item/items_find#show"
+          get "/find_all", to: "item/items_find#index"
+          get "/random", to: "item/items_random#show"
         end
       end
 
@@ -52,12 +52,12 @@ Rails.application.routes.draw do
           get "/random", to: "merchants/merchants_random#show"
         end
       end
-      resources :transactions, only: [:index, :show] do
-        get "/invoice", to: "transactions_invoice#show"
+      resources :transactions, only: [:index, :show], :controller => "transaction/transactions" do
+        get "/invoice", to: "transaction/transactions_invoice#show"
         collection do
-          get "/find", to: "transactions_find#show"
-          get "/find_all", to: "transactions_find#index"
-          get "/random", to: "transactions_random#show"
+          get "/find", to: "transaction/transactions_find#show"
+          get "/find_all", to: "transaction/transactions_find#index"
+          get "/random", to: "transaction/transactions_random#show"
         end
       end
 

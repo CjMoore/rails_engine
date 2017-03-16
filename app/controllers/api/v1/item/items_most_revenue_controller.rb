@@ -1,4 +1,4 @@
-class  Api::V1::ItemsMostRevenueController < ApplicationController
+class  Api::V1::Item::ItemsMostRevenueController < ApplicationController
 
   def index
     if params[:quantity]
