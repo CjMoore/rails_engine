@@ -61,7 +61,9 @@ describe "when user queries items with find_all" do
   it "they can find_all with unit_price" do
     item1, item2 = Fabricate.times(2, :item)
 
-    get "/api/v1/items/find_all?unit_price=#{item1.unit_price}"
+    unit_price = "1.23"
+
+    get "/api/v1/items/find_all?unit_price=#{unit_price}"
 
     expect(response).to be_success
 

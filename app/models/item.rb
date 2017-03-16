@@ -27,5 +27,4 @@ class Item < ApplicationRecord
       .group(:id)
       .order("count DESC").limit(number)
   end
-
 end
