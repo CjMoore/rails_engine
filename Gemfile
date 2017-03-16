@@ -32,6 +32,7 @@ group :development, :test do
   gem 'fabrication'
   gem 'shoulda-matchers', '~> 3.0'
   gem 'pry'
+  gem 'simplecov', :require => false, :group => :test
 end
 
 group :development do
