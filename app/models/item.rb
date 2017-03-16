@@ -8,7 +8,7 @@ class Item < ApplicationRecord
 
   def self.with_most_revenue(count)
     joins(invoices: [:transactions, :invoice_items])
-      .merge(Transaction.where(result: "success"))
+      .merge(Transaction.success)
       .group(:id).select("items.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue")
       .order("revenue DESC").limit(count)
   end

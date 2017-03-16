@@ -5,9 +5,9 @@ class Customer < ApplicationRecord
 
   validates :first_name, :last_name, presence: true
 
-  def self.favorite_merchant(customer)
+  def self.favorite_merchant(customer_id)
     Merchant.joins(invoices: :transactions)
-      .where('invoices.customer_id = ?', customer.id)
+      .where('invoices.customer_id = ?', find(customer_id))
       .merge(Transaction.success)
       .select('merchants.*, count(invoices.customer_id) as total')
       .group('merchants.id')

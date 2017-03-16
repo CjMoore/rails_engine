@@ -1,9 +1,11 @@
 class Api::V1::MerchantsRevenueController < ApplicationController
+
   def show
     if params[:date]
-      @revenue = Merchant.with_invoices.find(params[:merchant_id]).total_revenue(params[:date])
+      render json: { "revenue" => (Merchant.merchant_revenue_on_date(params[:date], params[:merchant_id])/100.00).round(2).to_s }
+
     else
-      @revenue = Merchant.with_invoices.find(params[:merchant_id]).total_revenue
+      render json: { "revenue" => (Merchant.total_revenue(params[:merchant_id])/100.00).round(2).to_s}
     end
   end
 
