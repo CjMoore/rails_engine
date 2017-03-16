@@ -7,5 +7,4 @@ class Invoice < ApplicationRecord
   has_many :items, through: :invoice_items
 
   validates :status, presence: true
-
 end
