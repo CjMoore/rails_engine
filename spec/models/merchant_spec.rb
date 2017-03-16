@@ -17,10 +17,10 @@ RSpec.describe Merchant, type: :model do
       invoice1 = Fabricate(:invoice, merchant: merchant, customer: customer)
       Fabricate.times(3, :transaction, invoice: invoice1)
 
-      favorite_customer = Merchant.get_favorite_customer(merchant)
+      favorite_customer = merchant.get_favorite_customer
 
-      expect(favorite_customer.first.first_name).to eq("Bob")
-      expect(favorite_customer.first.last_name).to eq("Burger")
+      expect(favorite_customer.first_name).to eq("Bob")
+      expect(favorite_customer.last_name).to eq("Burger")
     end
   end
 

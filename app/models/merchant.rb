@@ -1,6 +1,7 @@
 class Merchant < ApplicationRecord
   has_many :items
   has_many :invoices
+  has_many :customers, through: :transactions
   has_many :transactions, through: :invoices
   has_many :invoice_items, through: :invoices
 
@@ -8,13 +9,15 @@ class Merchant < ApplicationRecord
 
   attr_accessor :total_revenue
 
-  def self.get_favorite_customer(merchant_id)
-    Customer.joins(:transactions, :invoices)
-      .merge(Invoice.where("invoices.merchant_id = ?", find(merchant_id)))
+  def get_favorite_customer
+    self.customers
+      .joins(:transactions)
       .merge(Transaction.success)
-      .select("customers.*, count(invoices.customer_id) AS customer_count")
-      .group(:id).order("customer_count DESC")
+      .select("customers.*, count(invoices.customer_id) AS invoice_count")
+      .group(:id)
+      .order("invoice_count DESC")
       .limit(1)
+      .first
   end
 
   def self.with_invoices
@@ -27,7 +30,6 @@ class Merchant < ApplicationRecord
       .merge(Invoice.where("invoices.created_at = ?", "#{date}"))
       .where("merchants.id = '#{id}'")
       .sum("invoice_items.quantity * invoice_items.unit_price")
-
   end
 
   def self.total_revenue(id)
@@ -38,12 +40,12 @@ class Merchant < ApplicationRecord
   end
 
   def self.most_items(number)
-    select("merchants.*, SUM(invoice_items.quantity) as total_items")
-      .joins(:invoice_items)
-      .joins("JOIN transactions ON transactions.invoice_id = invoices.id AND transactions.result = 'success'")
-      .having("COUNT(transactions.id) > 0")
+    with_invoices
+      .merge(Transaction.success)
       .group("merchants.id")
-      .order("total_items DESC").limit(number)
+      .select("merchants.*, SUM(invoice_items.quantity) as total_items")
+      .order("total_items DESC")
+      .limit(number)
   end
 
   def self.with_most_revenue(count)

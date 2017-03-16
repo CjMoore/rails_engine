@@ -12,6 +12,7 @@ describe "when user visits merchants/:id/favorite_customers" do
     expect(response).to be_success
 
     customer_response = JSON.parse(response.body)
+    # byebug
 
     expect(customer_response["id"]).to eq(customer.id)
   end
