@@ -14,6 +14,7 @@ Rails.application.routes.draw do
         get "/best_day", to: "items_best_day#show"
         collection do
           get "/most_revenue", to: "items_most_revenue#index"
+          get "/most_items", to: "items_most_items#index"
           get "/find", to: "items_find#show"
           get "/find_all", to: "items_find#index"
           get "/random", to: "items_random#show"
