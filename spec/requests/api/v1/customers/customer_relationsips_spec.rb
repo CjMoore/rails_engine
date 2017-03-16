@@ -5,16 +5,16 @@ describe "when user requests customer relationship routes" do
     it "api responds with all transactions associated with that customer" do
       customer = Fabricate(:customer)
       invoice1 = Fabricate(:invoice, customer: customer)
+      invoice2 = Fabricate(:invoice, customer: customer)
 
       get "/api/v1/customers/#{customer.id}/transactions"
 
       expect(response).to be_success
 
       transaction_response = JSON.parse(response.body)
-      byebug
 
-      expect(transaction_response.first["id"]).to eq(invoice1.transaction.first.id)
-      expect(transaction_response.last["id"]).to eq(invoice1.transaction.last.id)
+      expect(transaction_response.first["id"]).to eq(invoice1.transactions.first.id)
+      expect(transaction_response.last["id"]).to eq(invoice2.transactions.last.id)
     end
   end
 
