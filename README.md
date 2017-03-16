@@ -1,24 +1,18 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Setup
+* Clone this repository
+* Bundle
+* rake db:create db:migrate db:seed
+* Success
 
-Things you may want to cover:
+### Usage
 
-* Ruby version
+* Start the server with rails s
+* Hit endpoints
+* View that JSON
 
-* System dependencies
+### Description
 
-* Configuration
+This application is build on rails 5.0.2. It is an internal API using a Postgres DB accessing the Turing Sales Engine data.
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
