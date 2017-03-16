@@ -5,11 +5,12 @@ describe "when user visits /items/most_revenue" do
     it "returns the quantity of items with the most revenue" do
       item1, item2, item3 = Fabricate.times(3, :item)
       invoice1, invoice2, invoice3 = Fabricate.times(3, :invoice)
-      invoice_items1 = Fabricate(:invoice_item, item: item1, invoice: invoice1)
-      invoice_items2 = Fabricate(:invoice_item, item: item2, invoice: invoice1)
-      invoice_items3 = Fabricate(:invoice_item, item: item1, invoice: invoice2)
-      invoice_items4 = Fabricate(:invoice_item, item: item2, invoice: invoice2)
-      invoice_items5 = Fabricate(:invoice_item, item: item3, invoice: invoice3)
+      Fabricate(:invoice_item, item: item1, invoice: invoice1)
+      Fabricate(:invoice_item, item: item2, invoice: invoice1)
+      Fabricate(:invoice_item, item: item1, invoice: invoice2)
+      Fabricate(:invoice_item, item: item2, invoice: invoice2)
+      Fabricate(:invoice_item, item: item3, invoice: invoice3)
+      Fabricate(:invoice_item, item: item1, invoice: invoice3)
 
       get '/api/v1/items/most_revenue?quantity=2'
 
