@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       end
 
       resources :merchants, only: [:index, :show], :controller => "merchants/merchants" do
+        get "/customers_with_pending_invoices", to: "merchants/merchants_pending_customers#index"
         get "/items", to: "merchants/merchants_items#index"
         get "/invoices", to: "merchants/merchants_invoices#index"
         get "/favorite_customer", to: "merchants/merchants_favorite_customer#show"
