@@ -4,4 +4,5 @@ class ApplicationRecord < ActiveRecord::Base
   def self.random
     all.sample
   end
+  
 end

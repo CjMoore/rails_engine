@@ -8,30 +8,26 @@ class Merchant < ApplicationRecord
 
   attr_accessor :total_revenue
 
-  def self.get_favorite_customer(merchant)
-    Customer.joins(:transactions, :invoices).merge(Invoice.where("invoices.merchant_id = ?", merchant.id)).merge(Transaction.where(result: 'success')).select("customers.*, count(invoices.customer_id) AS customer_count").group(:id).order("customer_count DESC").limit(1)
-  end
-
-  def total_revenue(date=nil)
-    if date
-      invoices_by_date(date).reduce(0) do |total, invoice|
-        total += invoice.total
-      end
-    else
-      invoices.select(&:successful?).reduce(0) do |total, invoice|
-        total += invoice.total
-      end
-    end
+  def self.get_favorite_customer(merchant_id)
+    Customer.joins(:transactions, :invoices)
+      .merge(Invoice.where("invoices.merchant_id = ?", find(merchant_id)))
+      .merge(Transaction.success)
+      .select("customers.*, count(invoices.customer_id) AS customer_count")
+      .group(:id).order("customer_count DESC")
+      .limit(1)
   end
 
   def self.with_invoices
     includes(invoices: [:invoice_items, :transactions])
   end
 
-  def invoices_by_date(date)
-    invoices.select(&:successful?).select do |invoice|
-      DateTime.parse(date) == invoice.date
-    end
+  def self.merchant_revenue_on_date(date, id)
+    with_invoices.merge(Transaction.success).merge(Invoice.where("invoices.created_at = ?", "#{date}")).where("merchants.id = '#{id}'").sum("invoice_items.quantity * invoice_items.unit_price")
+
+  end
+
+  def self.total_revenue(id)
+    with_invoices.merge(Transaction.success).where(id: id).sum("invoice_items.quantity * invoice_items.unit_price")
   end
 
   def self.most_items(number)
@@ -45,14 +41,16 @@ class Merchant < ApplicationRecord
 
   def self.with_most_revenue(count)
     joins(invoices: [:transactions, :invoice_items])
-      .merge(Transaction.where(result: "success"))
-      .group("merchants.id").select("merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue")
-      .order("revenue DESC").limit("#{count}")
+      .merge(Transaction.success)
+      .group("merchants.id")
+      .select("merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue")
+      .order("revenue DESC")
+      .limit("#{count}")
   end
 
   def self.total_revenue_on_date(date)
     joins(invoices: [:transactions, :invoice_items])
-      .merge(Transaction.where(result:"success"))
+      .merge(Transaction.success)
       .merge(Invoice.where("invoices.created_at = ?", "#{date}"))
       .sum("invoice_items.quantity * invoice_items.unit_price")
   end
