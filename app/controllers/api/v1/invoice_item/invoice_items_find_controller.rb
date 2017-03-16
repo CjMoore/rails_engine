@@ -1,4 +1,4 @@
-class Api::V1::InvoiceItemsFindController < ApplicationController
+class Api::V1::InvoiceItem::InvoiceItemsFindController < ApplicationController
 
   def index
     if params[:unit_price]

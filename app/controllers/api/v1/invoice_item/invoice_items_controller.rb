@@ -1,4 +1,4 @@
-class Api::V1::InvoiceItemsController < ApplicationController
+class Api::V1::InvoiceItem::InvoiceItemsController < ApplicationController
 
   def index
     @invoice_items = InvoiceItem.all
