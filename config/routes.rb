@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :invoices, only: [:index, :show] do
         get "/transactions", to: "invoices_transactions#index"
+        get "/invoice_items", to: "invoices_invoice_items#index"
         collection do
           get "/find", to: "invoices_find#show"
           get "/find_all", to: "invoices_find#index"
