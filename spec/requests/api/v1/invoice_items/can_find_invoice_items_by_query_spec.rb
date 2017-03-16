@@ -26,7 +26,9 @@ describe "user queries invoice_items with find" do
   it "by the unit_price" do
     invoice_item1 = Fabricate(:invoice_item)
 
-    get "/api/v1/invoice_items/find?unit_price=#{invoice_item1.unit_price}"
+    unit_price = "1.23"
+
+    get "/api/v1/invoice_items/find?unit_price=#{unit_price}"
 
     expect(response).to be_success
 

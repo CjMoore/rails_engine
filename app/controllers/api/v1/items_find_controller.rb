@@ -1,10 +1,18 @@
 class Api::V1::ItemsFindController< ApplicationController
   def index
-    @items =  Item.where(find_params)
+    if params[:unit_price]
+      @items = Item.where(unit_price: format_unit_price(params[:unit_price]))
+    else
+      @items =  Item.where(find_params)
+    end
   end
 
   def show
-    @item = Item.find_by(find_params)
+    if params[:unit_price]
+      @item = Item.find_by(unit_price: format_unit_price(params[:unit_price]))
+    else
+      @item = Item.find_by(find_params)
+    end
   end
 
   private
