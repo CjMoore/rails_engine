@@ -3,6 +3,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :invoices, only: [:index, :show] do
+        get "/transactions", to: "invoices_transactions#index"
+        get "/invoice_items", to: "invoices_invoice_items#index"
+        get "/items", to: "invoices_items#index"
+        get "/customer", to: "invoices_customer#show"
+        get "/merchant", to: "invoices_merchant#show"
         collection do
           get "/find", to: "invoices_find#show"
           get "/find_all", to: "invoices_find#index"
@@ -12,6 +17,8 @@ Rails.application.routes.draw do
 
       resources :items, only: [:index, :show] do
         get "/best_day", to: "items_best_day#show"
+        get "/invoice_items", to: "items_invoice_items#index"
+        get "/merchant", to: "items_merchant#show"
         collection do
           get "/most_revenue", to: "items_most_revenue#index"
           get "/most_items", to: "items_most_items#index"
@@ -22,6 +29,8 @@ Rails.application.routes.draw do
       end
 
       resources :invoice_items, only: [:index, :show] do
+        get "/invoice", to: "invoice_items_invoice#show"
+        get "/item", to: "invoice_items_item#show"
         collection do
           get "/find", to: "invoice_items_find#show"
           get "/find_all", to: "invoice_items_find#index"
