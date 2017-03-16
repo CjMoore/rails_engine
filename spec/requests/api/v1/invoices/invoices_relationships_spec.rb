@@ -66,3 +66,18 @@ describe "get customer for an invoice" do
     expect(customer_response["id"]).to eq(customer.id)
   end
 end
+
+describe "get merchant for an invoice" do
+  it "returns the associated merchant" do
+    merchant = Fabricate(:merchant)
+    invoice = Fabricate(:invoice, merchant: merchant)
+
+    get "/api/v1/invoices/#{invoice.id}/merchant"
+
+    expect(response).to be_success
+
+    merchant_response = JSON.parse(response.body)
+
+    expect(merchant_response["id"]).to eq(merchant.id)
+  end
+end
