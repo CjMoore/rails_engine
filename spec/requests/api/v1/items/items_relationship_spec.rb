@@ -16,3 +16,18 @@ describe "get all invoice_items for an item" do
     expect(invoice_item_response.last["id"]).to eq(invoice_item_2.id)
   end
 end
+
+describe "get merchant for an item" do
+  it "returns the associated merchant" do
+    merchant = Fabricate(:merchant)
+    item = Fabricate(:item, merchant: merchant)
+
+    get "/api/v1/items/#{item.id}/merchant"
+
+    expect(response).to be_success
+
+    merchant_response = JSON.parse(response.body)
+
+    expect(merchant_response["id"]).to eq(merchant.id)
+  end
+end
