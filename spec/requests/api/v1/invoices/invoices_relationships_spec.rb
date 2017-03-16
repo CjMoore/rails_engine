@@ -33,3 +33,21 @@ describe "get all invoice_items for an invoice" do
     expect(invoice_item_response.last["id"]).to eq(invoice_item_2.id)
   end
 end
+
+describe "get all items for an invoice" do
+  it "returns all associated items" do
+    item_1, item_2 = Fabricate.times(2, :item)
+    invoice_item = Fabricate.build(:invoice_item, item: item_1)
+    invoice_item_2 = Fabricate.build(:invoice_item, item: item_2)
+    invoice = Fabricate(:invoice, invoice_items: [invoice_item, invoice_item_2])
+
+    get "/api/v1/invoices/#{invoice.id}/items"
+
+    expect(response).to be_success
+
+    item_response = JSON.parse(response.body)
+
+    expect(item_response.first["id"]).to eq(item_1.id)
+    expect(item_response.last["id"]).to eq(item_2.id)
+  end
+end
