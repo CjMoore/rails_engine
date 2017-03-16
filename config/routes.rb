@@ -11,7 +11,7 @@ Rails.application.routes.draw do
         collection do
           get "/find", to: "invoices_find#show"
           get "/find_all", to: "invoices_find#index"
-          get "/random", to: "invoices_random#show"
+          get "/random", to: "invoices/invoices_random#show"
         end
       end
 
