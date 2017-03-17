@@ -3,7 +3,8 @@
 ### Setup
 * Clone this repository
 * Bundle
-* rake db:create db:migrate db:seed
+* rake db:create db:migrate 
+* rake csv:import <--If you'd like to seed the db with the Sales Engine data.
 * Success
 
 ### Usage
