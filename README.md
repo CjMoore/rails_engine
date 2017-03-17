@@ -15,5 +15,5 @@
 
 ### Description
 
-This application is build on rails 5.0.2. It is an internal API using a Postgres DB accessing the Turing Sales Engine data.
+This application is built on Rails 5.0.2. It is an internal API using a Postgres DB accessing the Turing Sales Engine data.
 
