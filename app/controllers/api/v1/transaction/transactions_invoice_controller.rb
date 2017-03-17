@@ -3,5 +3,4 @@ class Api::V1::Transaction::TransactionsInvoiceController < ApplicationControlle
   def show
     @invoice = Transaction.find(params[:transaction_id]).invoice
   end
-
 end

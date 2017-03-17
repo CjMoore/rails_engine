@@ -1,11 +1,11 @@
 class Api::V1::Transaction::TransactionsFindController < ApplicationController
 
   def index
-    render json: Transaction.where(find_params)
+    @transactions = Transaction.where(find_params)
   end
 
   def show
-    render json: Transaction.find_by(find_params)
+    @transaction = Transaction.find_by(find_params)
   end
 
   private
