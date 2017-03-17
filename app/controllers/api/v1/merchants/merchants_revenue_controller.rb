@@ -2,10 +2,10 @@ class Api::V1::Merchants::MerchantsRevenueController < ApplicationController
 
   def show
     if params[:date]
-      render json: { "revenue" => (Merchant.merchant_revenue_on_date(params[:date], params[:merchant_id])/100.00).round(2).to_s }
+      render json: { "revenue" => format_price_output(Merchant.merchant_revenue_on_date(params[:date], params[:merchant_id])) }
 
     else
-      render json: { "revenue" => (Merchant.total_revenue(params[:merchant_id])/100.00).round(2).to_s}
+      render json: { "revenue" => format_price_output(Merchant.total_revenue(params[:merchant_id]))}
     end
   end
 
@@ -13,7 +13,7 @@ class Api::V1::Merchants::MerchantsRevenueController < ApplicationController
     if params[:quantity]
       @merchants = Merchant.with_most_revenue(params[:quantity])
     elsif params[:date]
-      render json: { "total_revenue" => ((Merchant.total_revenue_on_date(params[:date])/100.00).round(2)).to_s}
+      render json: { "total_revenue" => format_price_output(Merchant.total_revenue_on_date(params[:date])) }
     end
   end
 end
