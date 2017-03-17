@@ -7,4 +7,5 @@ class Api::V1::Item::ItemsController < ApplicationController
   def show
     @item =  Item.find(params[:id])
   end
+  
 end

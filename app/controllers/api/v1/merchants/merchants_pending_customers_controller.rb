@@ -3,5 +3,4 @@ class Api::V1::Merchants::MerchantsPendingCustomersController < ApplicationContr
   def index
     @customers = Merchant.find(params[:merchant_id]).pending_customers
   end
-
 end
