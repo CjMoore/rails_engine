@@ -19,7 +19,13 @@ class Api::V1::InvoiceItem::InvoiceItemsFindController < ApplicationController
   private
 
   def find_params
-    params.permit(:item_id, :invoice_id, :merchant_id, :id, :quantity, :unit_price , :created_at, :updated_at)
-
+    params.permit(:item_id,
+                  :invoice_id,
+                  :merchant_id,
+                  :id,
+                  :quantity,
+                  :unit_price ,
+                  :created_at,
+                  :updated_at)
   end
 end

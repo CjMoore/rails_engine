@@ -7,5 +7,4 @@ class Api::V1::InvoiceItem::InvoiceItemsController < ApplicationController
   def show
     @invoice_item = InvoiceItem.find(params[:id])
   end
-
 end
