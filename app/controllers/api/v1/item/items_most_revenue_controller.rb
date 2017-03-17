@@ -5,5 +5,4 @@ class  Api::V1::Item::ItemsMostRevenueController < ApplicationController
       @items = Item.with_most_revenue(params[:quantity])
     end
   end
-
 end

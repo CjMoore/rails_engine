@@ -1,5 +1,5 @@
 class Api::V1::Item::ItemsFindController< ApplicationController
-  
+
   def index
     if params[:unit_price]
       @items = Item.where(unit_price: format_unit_price(params[:unit_price]))
@@ -19,6 +19,12 @@ class Api::V1::Item::ItemsFindController< ApplicationController
   private
 
   def find_params
-    params.permit(:name, :merchant_id, :id, :description, :unit_price, :created_at, :updated_at)
+    params.permit(:name,
+                  :merchant_id,
+                  :id,
+                  :description,
+                  :unit_price,
+                  :created_at,
+                  :updated_at)
   end
 end

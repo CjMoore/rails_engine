@@ -1,4 +1,5 @@
 class Api::V1::Transaction::TransactionsController < ApplicationController
+  
   def index
     @transactions =  Transaction.all
   end
